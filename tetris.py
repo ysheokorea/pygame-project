@@ -314,8 +314,8 @@ def main(win):
 
         if level_time/1000 > 5:
             level_time = 0
-            if level_time > 0.12:
-                level_time -= 0.005
+            if fall_speed > 0.12:
+                fall_speed -= 0.005
 
 
         # Piece falling time adjusting
@@ -327,7 +327,7 @@ def main(win):
                 change_piece = True
 
 
-
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -346,14 +346,20 @@ def main(win):
                     current_piece.y +=1
                     if not (valid_space(current_piece, grid)):
                         current_piece.y -= 1
-                # if event.key == pygame.K_SPACE:
-                #       hard-drop implemention to be
-                    
+                # if event.key == pygame.K_SPACE:                    
                 if event.key == pygame.K_UP:
                     current_piece.rotation += 1
                     if not (valid_space(current_piece, grid)):
                         current_piece.rotation -= 1
 
+                # hard-drop implemention using SPACEBAR
+                if event.key == pygame.K_SPACE:
+                    while (valid_space(current_piece, grid)):
+                        current_piece.y += 1
+                    current_piece.y -= 1
+
+
+        
         shape_pos = convert_shape_format(current_piece)
 
         for i in range(len(shape_pos)):
