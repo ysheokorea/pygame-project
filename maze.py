@@ -21,6 +21,7 @@ WHITE = (255,255,255)
 GREEN = (0,255,0)
 BLUE = (0,0,255)
 YELLOW = (255,255,0)
+BLACK = (0,0,0)
 
 #initialize pygame
 pygame.init()
@@ -90,9 +91,9 @@ def carve_out_maze(x, y):
     stack.append((x, y))                                        # place starting cell into stack
     visited.append((x, y))                                      # Add starting cell to visited list
 
-    while len(stack) != 0:                                       # Loop until stack is empty
-        pygame.event.pump()
-        time.sleep(0.01)                                         # slow a program now a bit
+    while len(stack) != 0:                                      # Loop until stack is empty
+        pygame.event.pump()                                     # Question to OS for every loop starting point / Not responding issue fixed
+        time.sleep(0.01)                                        # slow a program now a bit
         
         cell = []                                               # define cell list
         # Right
@@ -141,16 +142,15 @@ def carve_out_maze(x, y):
 
         else :
             x, y = stack.pop()          # if no cells available then pop one from the stack which is the latest cell chosen
-            print(stack)
             single_cell(x, y)           # use single_cell function to show backtracking image
             time.sleep(0.01)            # slow program down a bit
             backtracking_cell(x, y)     # Change color to green to identify backtracking path
 
 def plot_route_back(x, y):
     solution_cell(x, y)         # solution list contains all the coordinates to route back to start
-    while (x, y) != (20,20):     # Loop until cell position == start position
-        pygame.event.pump()
-        x, y = solution[(x, y)]   # 'key value' now becomes the new key
+    while (x, y) != (20,20):    # Loop until cell position == start position
+        pygame.event.pump()     # Question to OS for every loop starting point / Not responding issue fixed
+        x, y = solution[(x, y)] # 'key value' now becomes the new key
         solution_cell(x, y)     # animate route back
         time.sleep(.3)
 
@@ -173,9 +173,7 @@ def main():
             plot_route_back(400,400)
             
 
-
-
-
+# pygame starts form here
 main()
 
 
